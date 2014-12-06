@@ -19,7 +19,17 @@ uses its loaded modules to respond to the request. It does so by looking up its
 own list of loaded modules. Each module has to be registered on load. This data
 is then used to process the request. Modules are covered in their own section.
 
+The basic component one needs for a request is a router. A router decides, based
+on the request what should happen next. The simplest router could simply decide
+to reject all requests.
 
+### 2. Task Queue
+
+Today the responsiveness of a webserver is limited by mostly two things, network
+bandwidth, and IO Operations. **C Server** tries to mitigate the time waiting on
+the latter by using a task queue. The basic premise is that if a thread is about
+to block it defers this by putting the current task into the background, waiting
+for the IO Operation to be done before allowing it to be handled again.
 
 Possible Drawbacks
 ------------------
